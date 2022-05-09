@@ -1,2 +1,4 @@
+import os
+import sys
 
-print("Hola mundo")
+print(os.path.dirname(sys.executable))
