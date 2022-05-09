@@ -55,8 +55,8 @@ class TestOnApp(unittest.TestCase):
         print('Test cancel is successful')
     
     def testSuspend(self):
-        suspendurl = f"{self.url}/suspend"
-        resp = requests.post(suspendurl, json = self.customer)
+        #suspendurl = f"{self.url}/suspend"
+        resp = requests.post(self.url + '/suspend', json = self.customer)
         self.assertEqual(resp.status_code, 200)
         print('Test suspend account is successful')
     
