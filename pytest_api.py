@@ -27,6 +27,53 @@ def testProcess():
         "mp": "onapp"
     }
 
+    print('\n---------------------------')
+    print('\nInicio de prueba de compra')
+
+    responsePurchase = requests.post(url + '/purchase', json = data)
+    assert responsePurchase.status_code == 200
+
+    print("\n")
+    print(responsePurchase.json())
+
+    print('\nTest Purchase is successful')
+    print('\nFin prueba de compra')
+
+    print('\n---------------------------')
+    print('\nInicio prueba de suspension')
+
+    data = responsePurchase.json()
+
+    customer = data['Msg']
+
+    r = requests.post(url + '/suspend', json = customer)
+    assert r.status_code == 200
+
+    print('\nTest suspend account is successful')
+    print('\nFin prueba de suspension')
+
+    print('\n---------------------------')
+    print('\nInicio prueba de activacion')
+
+    r = requests.post(url + '/resume', json = customer)
+    assert  r.status_code == 200
+
+    print('\nTest Activate account is successful')
+    print('\nfin prueaba de activacion')
+
+    print('\n---------------------------')
+    print('\nInicio prueba de cancelacion')
+
+    r = requests.post(url + '/cancel', json = customer)
+    assert r.status_code == 200
+
+    print('\nTest cancel is successful')
+    print('\n---------------------------')
+
+
+def testProcesMx():
+
+    url = 'https://pydevc6.paasmx.connectnow.global/onapp'
     dataMX = {
         "subscription":11,
         "customer":{
@@ -53,12 +100,6 @@ def testProcess():
     print('\n---------------------------')
     print('\nInicio de prueba de compra')
 
-    responsePurchase = requests.post(url + '/purchase', json = data)
-    assert responsePurchase.status_code == 200
-
-    print("\n")
-    print(responsePurchase.json())
-
     responsePurchaseMex = requests.post(url + '/purchase', json = dataMX)
     assert responsePurchaseMex.status_code == 200
 
@@ -71,14 +112,10 @@ def testProcess():
     print('\n---------------------------')
     print('\nInicio prueba de suspension')
 
-    data = responsePurchase.json()
     dataMX = responsePurchaseMex.json()
 
-    customer = data['Msg']
     customerMX = dataMX['Msg']
 
-    r = requests.post(url + '/suspend', json = customer)
-    assert r.status_code == 200
     rMX = requests.post(url + '/suspend', json = customerMX)
     assert rMX.status_code == 200
 
@@ -88,8 +125,6 @@ def testProcess():
     print('\n---------------------------')
     print('\nInicio prueba de activacion')
 
-    r = requests.post(url + '/resume', json = customer)
-    assert  r.status_code == 200
     rMX = requests.post(url + '/resume', json = customerMX)
     assert  rMX.status_code == 200
 
@@ -99,11 +134,8 @@ def testProcess():
     print('\n---------------------------')
     print('\nInicio prueba de cancelacion')
 
-    r = requests.post(url + '/cancel', json = customer)
-    assert r.status_code == 200
     rMX = requests.post(url + '/cancel', json = customerMX)
     assert rMX.status_code == 200
 
     print('\nTest cancel is successful')
     print('\n---------------------------')
-
