@@ -3,7 +3,7 @@ import requests
 
 def testProcess():
 
-    url = 'http://env-0752280.paasmx.connectnow.global/onapp'
+    url = 'https://pydevc6.paasmx.connectnow.global/'
     data = {
         "subscription":11,
         "customer":{
