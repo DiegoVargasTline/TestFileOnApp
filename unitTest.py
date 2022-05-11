@@ -3,7 +3,8 @@ import requests
 
 
 class TestOnApp(unittest.TestCase):
-    url = 'https://pydevc6.paasmx.connectnow.global/'
+    url = 'https://pydevc6.paasmx.connectnow.global/onapp'
+    #url = 'http://env-0752280.paasmx.connectnow.global'
     data = {
         "subscription":11,
         "customer":{
@@ -89,6 +90,7 @@ class TestOnApp(unittest.TestCase):
         print('Test Activate account is successful')
 
     def testProcess(self):
+        print(f"\n{self.url}")
         print('\n---------------------------')
         print('\nInicio de prueba de compra')
 
