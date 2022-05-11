@@ -3,7 +3,7 @@ import requests
 
 
 class TestOnApp(unittest.TestCase):
-    url = 'http://env-0752280.paasmx.connectnow.global/onapp'
+    url = 'https://pydevc6.paasmx.connectnow.global/'
     data = {
         "subscription":11,
         "customer":{
@@ -133,7 +133,7 @@ class TestOnApp(unittest.TestCase):
 
         resp = requests.post(self.url+ '/cancel', json = customer)
         self.assertEqual(resp.status_code, 200)
-        respMx = requests.post(self.url+ '/cancel', json = customerMx)
+        respMx = requests.post(self.url+ '/cancel', json = customerMX)
         self.assertEqual(respMx.status_code, 200)
 
         print('\nTest cancel is successful')
