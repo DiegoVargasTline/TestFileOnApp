@@ -3,7 +3,7 @@ import requests
 
 def testProcess():
 
-    url = 'https://pydevc6.paasmx.connectnow.global'
+    url = 'https://pydevc6.paasmx.connectnow.global/onapp'
     data = {
         "subscription":11,
         "customer":{
@@ -56,8 +56,14 @@ def testProcess():
     responsePurchase = requests.post(url + '/purchase', json = data)
     assert responsePurchase.status_code == 200
 
+    print("\n")
+    print(responsePurchase.json())
+
     responsePurchaseMex = requests.post(url + '/purchase', json = dataMX)
     assert responsePurchaseMex.status_code == 200
+
+    print("\n")
+    print(responsePurchaseMex.json())
 
     print('\nTest Purchase is successful')
     print('\nFin prueba de compra')

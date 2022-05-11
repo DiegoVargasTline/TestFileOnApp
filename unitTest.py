@@ -96,8 +96,15 @@ class TestOnApp(unittest.TestCase):
 
         respPurchase = requests.post(self.url + '/purchase', json = self.data)
         self.assertEqual(respPurchase.status_code, 200)
+
+        print("\n")
+        print(respPurchase.json())
+
         respPurchaseMx = requests.post(self.url + '/purchase', json = self.dataMX)
         self.assertEqual(respPurchaseMx.status_code, 200)
+
+        print("\n")
+        print(respPurchaseMx.json())
 
         print('\nTest Purchase is successful')
         print('\nFin prueba de compra')
