@@ -43,6 +43,29 @@ class TestOnApp(unittest.TestCase):
         }
     }
 
+    dataMX = {
+        "subscription":11,
+        "customer":{
+            "id":8,
+            "name":"Diego Vargas",
+            "street":"xxxx",
+            "email":"test@test.com"
+        },
+        "params":{
+            "project":{
+                "login":"testJenkins",
+                "email":"test@test.com",
+                "first_name":"test",
+                "last_name":"test",
+                "password":"",
+                "name_package":"LiveWire Plan",
+                "id_package":"3",
+                "cluster": "MX"
+            }
+        },
+        "mp": "onapp"
+        }
+
     def testPurchaseOnapp(self):
         urlpurchase =self.url + '/purchase'
         self.resp = requests.post(urlpurchase, json = self.data)
@@ -68,31 +91,51 @@ class TestOnApp(unittest.TestCase):
     def testProcess(self):
         print('\n---------------------------')
         print('\nInicio de prueba de compra')
+
         respPurchase = requests.post(self.url + '/purchase', json = self.data)
         self.assertEqual(respPurchase.status_code, 200)
+        respPurchaseMx = requests.post(self.url + '/purchase', json = self.dataMX)
+        self.assertEqual(respPurchaseMx.status_code, 200)
+
         print('\nTest Purchase is successful')
         print('\nFin prueba de compra')
        
         print('\n---------------------------')
         print('\nInicio prueba de suspension')
+
         data = respPurchase.json()
+        dataMX = respPurchaseMx.json()
+        
         customer = data['Msg']
+        customerMX = dataMX['Msg']
+
         resp = requests.post(self.url + '/suspend', json = customer)
         self.assertEqual(resp.status_code, 200)
+        respMx = requests.post(self.url + '/suspend', json = customerMX)
+        self.assertEqual(respMx.status_code, 200)
+
         print('\nTest suspend account is successful')
         print('\nFin prueba de suspension')
 
         print('\n---------------------------')
         print('\nInicio prueba de activacion')
+
         resp = requests.post(self.url + '/resume', json = customer)
         self.assertEqual(resp.status_code, 200)
+        respMx = requests.post(self.url + '/resume', json = customerMX)
+        self.assertEqual(respMx.status_code, 200)
+
         print('\nTest Activate account is successful')
         print('\nfin prueaba de activacion')
 
         print('\n---------------------------')
         print('\nInicio prueba de cancelacion')
+
         resp = requests.post(self.url+ '/cancel', json = customer)
         self.assertEqual(resp.status_code, 200)
+        respMx = requests.post(self.url+ '/cancel', json = customerMx)
+        self.assertEqual(respMx.status_code, 200)
+
         print('\nTest cancel is successful')
         print('\n---------------------------')
 
