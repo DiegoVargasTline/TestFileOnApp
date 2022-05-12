@@ -95,7 +95,7 @@ def testProcesMx():
             }
         },
         "mp": "onapp"
-        }
+    }
 
     print('\n---------------------------')
     print('\nInicio de prueba de compra')

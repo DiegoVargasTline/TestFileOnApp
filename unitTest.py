@@ -90,7 +90,7 @@ class TestOnApp(unittest.TestCase):
         print('Test Activate account is successful')
 
     def testProcess(self):
-        print(f"\n{self.url}")
+        print("\n " + self.url)
         print('\n---------------------------')
         print('\nInicio de prueba de compra')
 
