@@ -1,8 +1,9 @@
 import requests
 import pytest
 
+urlJelastic ='https://pydevc6.paasmx.connectnow.global/jelas'
+
 def test_jelastic():
-    url = 'https://pydevc6.paasmx.connectnow.global/jelas'
     data ={
         "subscription": 0,
         "customer": {
@@ -22,7 +23,7 @@ def test_jelastic():
     print('\n---------------------------')
     print('\nInicio de prueba de compra')
 
-    responseJelas = requests.post(url + '/purchase', json = data)
+    responseJelas = requests.post(urlJelastic + '/purchase', json = data)
     assert responseJelas.status_code == 200
     dataJelas = responseJelas.json()
     print(dataJelas)
@@ -33,17 +34,118 @@ def test_jelastic():
     print('\nInicio prueba de suspension') 
     
     email = dataJelas['Msg']
-    suspendJelas = requests.post(url + '/suspend', json = email)
+    suspendJelas = requests.post(urlJelastic + '/suspend', json = email)
     assert suspendJelas.status_code == 200
     
     print('\n---------------------------')
     print('\nInicio prueba de activacion')
 
-    resumeJelas = requests.post(url + '/resume', json  = email)
+    resumeJelas = requests.post(urlJelastic + '/resume', json  = email)
     assert resumeJelas.status_code == 200
 
     print('\n---------------------------')
     print('\nInicio prueba de cancelacion')
 
-    cancelJelas = requests.post(url + '/cansel', json = email)
+    cancelJelas = requests.post(urlJelastic + '/cansel', json = email)
     assert cancelJelas.status_code == 200
+
+
+def test_Billing():
+
+    pay = {
+        "subscription":2,
+        "customer":{
+            "id":8,
+            "name":"",
+            "street":"",
+            "email":""
+        },
+        "params":{
+            "project":{
+                "email":"diego.vargas@tline.com",
+                "method":"PAY",
+                "amount":"400.00"
+            }
+        }
+    }
+
+    data = {
+        "subscription":2,
+        "customer":{
+            "id":8,
+            "name":"",
+            "street":"",
+            "email":""
+        },
+        "params":{
+            "project":{
+                "email":"diego.vargas@tline.com",
+                "method":"DATA",
+                "period":"MONTH",
+                "starttime":"2021-01-26 00:00:00",
+                "endtime":"2022-05-17 00:00:00"
+            }
+        }
+    }
+
+    print('\n---------------------------')
+    print('\nInicio de prueba de fondeo para jelastic\n')
+
+    postPayBilling = requests.post(urlJelastic + '/billing', json = pay)
+    assert postPayBilling.status_code == 200
+    dataBilling = postPayBilling.json()
+    assert dataBilling["Success"] == 1
+    print(postPayBilling.json())
+
+    print('\n---------------------------')
+    print('\nInicio de prueba billing\n')
+
+    getBilling = requests.post(urlJelastic + '/billing', json = data)
+    assert getBilling.status_code == 200
+    datagetBilling = getBilling.json()
+    assert datagetBilling["Success"] == 1
+    print(getBilling.json())
+
+
+def test_Reseller():
+
+    data = {
+        "subscription":2,
+        "customer":{
+            "id":8,
+            "name":"Test Jenkins",
+            "street":"12-34:56/89",
+            "email":"diego.vargas@tline.com"
+        },
+        "params":{
+            "project":{
+                "email":"diego.vargas@tline.com",
+                "reseller":{
+                    "name":"testJenkis",
+                    "ownerUid":"508",
+                    "comment":"test"
+                },
+                "platform":{
+                    "domain":"testJenkins.paasmx.connectnow.global",
+                    "sslEnabled":True,
+                    "sslType":"LETSENCRYPT"
+                },
+                "regions":[
+                    {
+                    "regionId":1,
+                    "domain":"testJenkins.paasmx.connectnow.global",
+                    "sslEnabled":True,
+                    "sslType":"LETSENCRYPT"
+                    }
+                ]
+            }
+        }
+    }
+
+    print('\n---------------------------')
+    print('\nInicio de prueba de reseller\n')    
+
+    getReseller = requests.post(urlJelastic + '/reseler', json= data)
+    assert getReseller.status_code == 200
+
+    print(getReseller.json())
