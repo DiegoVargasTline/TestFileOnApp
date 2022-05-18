@@ -184,7 +184,7 @@ def test_billingDetail():
     }
 
     print('\n---------------------------')
-    print('\nInicio prueba de cancelacion\n')
+    print('\nInicio prueba Billing UK\n')
 
     getBillingOnApp = requests.get(url + '/BillingDetail', json = data)
     assert getBillingOnApp.status_code == 200
@@ -212,6 +212,9 @@ def test_billingDetailMX():
         "StartDate": "2022-04-01",
         "EndDate": "2022-04-31"
     }
+
+    print('\n---------------------------')
+    print('\nInicio prueba Billing MX\n')
 
     getBillingOnApp = requests.get(url + '/BillingDetail', json = data)
     assert getBillingOnApp.status_code == 200
