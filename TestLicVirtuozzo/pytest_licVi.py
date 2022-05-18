@@ -1,8 +1,9 @@
 import pytest
 import requests
+    
+url = 'https://pydevc6.paasmx.connectnow.global/licvi'
 
 def test_LicVi():
-    url = 'https://pydevc6.paasmx.connectnow.global/licvi'
     data = {
         "subscription": 0,
         "customer": {
@@ -41,3 +42,27 @@ def test_LicVi():
 
     cancelLicVi = requests.post(url + '/cancel', json =_data)
     assert cancelLicVi.status_code == 200
+
+
+def test_vendorBilling():
+
+    print('\n---------------------------')
+    print('\nInicio prueba de vendorBilling\n')
+
+    vendorBilling = requests.get(url + '/vendorBilling')
+
+    assert vendorBilling.status_code == 200
+
+    print(vendorBilling.json())
+
+
+def test_providerBilling():
+
+    print('\n---------------------------')
+    print('\nInicio prueba de providerBilling\n')
+
+    providerBilling = requests.get(url + '/providerBilling')
+
+    assert providerBilling.status_code == 200
+
+    print(providerBilling.json())

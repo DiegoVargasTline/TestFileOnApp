@@ -159,3 +159,61 @@ def testProcesMx():
 
     print('\nTest cancel is successful')
     print('\n---------------------------')
+
+
+
+def test_billingDetail():
+
+    url = 'https://pydevc6.paasmx.connectnow.global/onapp'
+
+    data = {
+            "Customer": {
+                "UserId": "7",
+                "Email": "yarko_email@test.com",
+                "BucketId": "11",
+                "User_GroupId": "34",
+                "FirstName": "Yarko",
+                "LastName": "Test",
+                "Status": "active",
+                "Password": "CakN(Ai#82ke",
+                "UserName": "yarko_login",
+                "Cluster": "UK"
+            },
+            "StartDate": "2022-04-01",
+            "EndDate": "2022-04-31"
+    }
+
+    print('\n---------------------------')
+    print('\nInicio prueba de cancelacion\n')
+
+    getBillingOnApp = requests.get(url + '/BillingDetail', json = data)
+    assert getBillingOnApp.status_code == 200
+
+    print(getBillingOnApp.json())
+
+
+def test_billingDetailMX():
+
+    url = 'https://pydevc6.paasmx.connectnow.global/onapp'
+
+    data = {
+        "Customer": {
+            "UserId": "1",
+            "Email": "admin@example.com",
+            "BucketId": "11",
+            "User_GroupId": "34",
+            "FirstName": "Admin",
+            "LastName": "OnApp",
+            "Status": "active",
+            "Password": "CakN(Ai#82ke",
+            "UserName": "admin",
+            "Cluster": "MX"
+        },
+        "StartDate": "2022-04-01",
+        "EndDate": "2022-04-31"
+    }
+
+    getBillingOnApp = requests.get(url + '/BillingDetail', json = data)
+    assert getBillingOnApp.status_code == 200
+
+    print(getBillingOnApp.json())
